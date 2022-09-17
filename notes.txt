@@ -1,0 +1,20 @@
+node init name of project
+3 things required
+1.nodemon - 
+2.express
+3.mongoose
+4.cors lib for mongoose
+create index.js file
+get connection to database
+establish connection to server using express.(middleWare)
+
+step -2 for creating api
+2. folder 1. model for adding data to mongodb
+   folder 2. Controller for logic buliding
+
+step 3. for need an entry in index.js as
+defining as type of meathod
+1.get
+2.post
+3.put
+4.delete
