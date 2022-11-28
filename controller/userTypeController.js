@@ -1,103 +1,100 @@
-const userTypeModel = require("../model/userTypeModel")
+const UserTypeModel = require("../model/userTypeModel")
+
 module.exports.addUserType = function (req, res) {
+    // let  userTypeID = parseInt(Math.random()*1000000)
     let userTypeName = req.body.userTypeName
-    let userTypeId = parseInt(Math.random() * 100000)
-    let userType = new userTypeModel(
-        {
-            "usertypeId": userTypeId,
+
+    let userType = new UserTypeModel(
+        { 
+            // "userTypeID": userTypeID, 
             "userTypeName": userTypeName
         }
     )
+
     userType.save(function (err, data) {
         if (err) {
             console.log(err);
             res.json({
-                msg: "UserType Not Added",
+                msg: "User Type not added",
                 status: -1,
-                data: "Error..."
+                data: "Something went wrong!!"
             })
-        }
-        else {
+        } else {
             res.json({
-                msg: "User Type Added",
+                msg: "User Type added",
                 status: 200,
                 data: data
             })
         }
     })
-}
-// adding a UserType
-module.exports.getAllUserTypes = function (req, res) {
-    userTypeModel.find(function (err, data) {
+}//addUserType
+
+//getAllUserTypes
+module.exports.getAllUserTypes = function(req,res){
+    UserTypeModel.find(function(err,data){
         console.log(err);
-        if (err) {
-            console.log(err);
+        if(err){
             res.json({
-                msg: "UserType Not Found",
+                msg: "Something went wrong!!!",
                 status: -1,
-                data: "SomeThing went wrong"
+                data: err
+            })
+        }else{
+            res.json({
+                msg: "User Types ret...",
+                status: 200,
+                data: data
             })
         }
-        else {
+    })
+}//getAllUserTypes
+
+
+//deleteUserTypes
+module.exports.deleteUserTypes = function(req,res){
+
+    let UserTypeId = req.body.UserTypeId 
+    UserTypeModel.deleteOne({_id:UserTypeId},function(err,data){
+        console.log(err);
+        if(err){
             res.json({
-                msg: "User Type retrieved",
+                msg: "Something went wrong!!!",
+                status: -1,
+                data: UserTypeId
+            })
+        }else{
+            res.json({
+                msg: "User Type removed...",
                 status: 200,
                 data: data
             })
         }
     })
 
-}
-// getting all users
-module.exports.updateUsertType = function (req, res) {
 
+}//deleteUserTypes
+
+//updateUserTypes
+module.exports.updateUserTypes = function(req,res){
     let userTypeId = req.body.userTypeId
-    let userTypeName = req.body.userTypeName
+    let userTypeName  = req.body.userTypeName
 
-    console.log(userTypeId);
-    console.log(userTypeName);
-
-    userTypeModel.updateOne({ _id: userTypeId }, { userTypeName: userTypeName }, function (err, data) {
+    UserTypeModel.updateOne({_id:userTypeId},{userTypeName:userTypeName},function(err,data){
         console.log(err);
-        if (err) {
-            console.log(err);
-
+        if(err){
             res.json({
-                msg: "UserType Not Updated",
+                msg: "Something went wrong!!!",
                 status: -1,
-                data: err
+                data: userTypeId
             })
-
-        }
-        else {
+        }else{
             res.json({
-                msg: "User Type Updated",
-                status: 200,
-                data: data
-            })
-        }
-    })
-}
-// updating the userType 
-
-module.exports.deleteUserType = function (req, res) {
-    let usertypeId = req.body.userTypeId
-    userTypeModel.deleteOne({ _id: usertypeId }, function (err, data) {
-        console.log(err);
-        if (err) {
-            res.json({
-                msg: "UserType Not deleted",
-                status: -1,
-                data: err
-            })
-        }
-        else {
-            res.json({
-                msg: "User Type deleted",
+                msg: "User Types updated...",
                 status: 200,
                 data: data
             })
         }
     })
 
-}
+}//updateUserTypes
+
